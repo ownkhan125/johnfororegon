@@ -6,7 +6,23 @@
       "Bash(cp -r /tmp/playwright-skill-temp/skills/playwright-skill .claude/skills/)",
       "Bash(npm run *)",
       "Bash(npm --version)",
-      "Bash(npx *)"
+      "Bash(npx *)",
+      "Bash(npm install *)",
+      "Bash(tee /tmp/devserver.log)",
+      "Bash(node run.js /c/Users/General/AppData/Local/Temp/playwright-test-smoke.js)",
+      "Bash(node run.js /c/Users/General/AppData/Local/Temp/playwright-test-responsive.js)",
+      "Bash(curl -sI \"http://localhost:3001/_next/image?url=https%3A%2F%2Fpicsum.photos%2Fseed%2Fhartwell-portrait%2F900%2F1125&w=1200&q=75\")",
+      "Bash(node run.js /c/Users/General/AppData/Local/Temp/playwright-test-menu.js)",
+      "Bash(node -e \"require\\('./lib/helpers'\\).detectDevServers\\(\\).then\\(s => console.log\\(JSON.stringify\\(s\\)\\)\\)\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-test-johnfororegon.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-sections-johnfororegon.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-mobile-johnfororegon.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-test-hero-stack.js\")",
+      "Bash(PORT=3003 npm run dev)",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-hero-mobile-stack.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-hero-flag.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-theme.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-hover-fix.js\")"
     ]
   }
 }

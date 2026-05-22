@@ -1,26 +1,370 @@
 @import "tailwindcss";
 
+/* ────────────────────────────────────────────────
+   Palette
+   ──────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette — American flag themed (rich red + deep navy + off-white).
+     Existing token names (ink/bark/umber/cream/ember) are preserved as the
+     re-themed values so the cascade does not require touching every class. */
+  --ink: #0a1628;          /* deep navy — primary dark surface */
+  --bark: #11203a;         /* elevated navy — alternating section */
+  --umber: #8b0e22;        /* heritage red — deep red for sweeps + warm tonal */
+  --cream: #f5f5f5;        /* off-white — body text on dark */
+  --cream-soft: #ffffff;   /* pure white — emphasis text */
+  --cream-muted: #8a95a8;  /* muted blue-gray — labels / tertiary */
+  --ember: #c8102e;        /* premium signal red — primary accent */
+
+  /* Hero palette aliases (kept for explicit hero class usage) */
+  --hero-paper: var(--cream);
+  --hero-paper-soft: #eaeaea;
+  --hero-flag: var(--ember);
+  --hero-flag-deep: var(--umber);
+  --hero-navy: var(--ink);
+  --hero-navy-soft: var(--bark);
+
+  --foreground: var(--cream);
+  --background: var(--ink);
 }
 
 @theme inline {
+  --color-ink: var(--ink);
+  --color-bark: var(--bark);
+  --color-umber: var(--umber);
+  --color-cream: var(--cream);
+  --color-cream-soft: var(--cream-soft);
+  --color-cream-muted: var(--cream-muted);
+  --color-ember: var(--ember);
+  --color-paper: var(--hero-paper);
+  --color-paper-soft: var(--hero-paper-soft);
+  --color-flag: var(--hero-flag);
+  --color-flag-deep: var(--hero-flag-deep);
+  --color-navy: var(--hero-navy);
+  --color-navy-soft: var(--hero-navy-soft);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  border-color: rgba(245, 245, 245, 0.08);
+}
+
+/* Selection */
+::selection {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--umber);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ember);
+}
+
+/* ────────────────────────────────────────────────
+   Premium Effects
+   ──────────────────────────────────────────────── */
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+}
+
+.glow-cream {
+  box-shadow: 0 0 0 1px rgba(245, 245, 245, 0.18),
+    0 20px 60px -20px rgba(245, 245, 245, 0.25);
+}
+
+/* Animated underline */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+/* Slow float */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+.floaty {
+  animation: floaty 9s ease-in-out infinite;
+}
+
+/* Conic shimmer (legacy — unused after theme remap, kept harmless) */
+.conic-shimmer {
+  background: conic-gradient(
+    from 0deg,
+    rgba(245, 245, 245, 0) 0deg,
+    rgba(245, 245, 245, 0.25) 90deg,
+    rgba(200, 16, 46, 0.35) 180deg,
+    rgba(245, 245, 245, 0.15) 270deg,
+    rgba(245, 245, 245, 0) 360deg
+  );
+}
+
+/* Custom focus ring */
+*:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Display heading kerning */
+.font-display {
+  font-feature-settings: "ss01", "ss02", "kern", "liga";
+  letter-spacing: -0.02em;
+}
+
+/* Hide horizontal scroll caused by floating elements */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100vw;
+}
+
+/* ────────────────────────────────────────────────
+   Motion utilities
+   ──────────────────────────────────────────────── */
+
+/* 3D scene utility */
+.scene-3d {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Slow ambient breathing for accents */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(200, 16, 46, 0);
+  }
+  50% {
+    box-shadow: 0 0 28px 2px rgba(200, 16, 46, 0.28);
+  }
+}
+.pulse-soft {
+  animation: pulse-soft 4.5s ease-in-out infinite;
+}
+
+/* Sheen sweep across a horizontal line */
+@keyframes sheen {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
+}
+.sheen-line {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 245, 245, 0.45) 50%,
+    transparent 100%
+  );
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  animation: sheen 6s ease-in-out infinite;
+}
+
+/* Conic rotating border */
+@keyframes conic-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(200, 16, 46, 0.7) 60deg,
+    rgba(245, 245, 245, 0.35) 120deg,
+    transparent 200deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: conic-spin 8s linear infinite;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.group:hover > .conic-border::before,
+.conic-border:hover::before {
+  opacity: 1;
+}
+
+/* Floating with rotation */
+@keyframes floaty-rot {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+.floaty-rot {
+  animation: floaty-rot 11s ease-in-out infinite;
+}
+
+/* Tracing dot along a path (used in roadmap) */
+@keyframes trace-dot {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Reduced motion: dial down infinite loops */
+@media (prefers-reduced-motion: reduce) {
+  .floaty,
+  .floaty-rot,
+  .marquee-track,
+  .sheen-line,
+  .pulse-soft,
+  .conic-border::before {
+    animation: none !important;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   Hero stack utilities
+   ──────────────────────────────────────────────── */
+
+/* Faint vertical grid for the hero backdrop */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 58, 138, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at 70% 40%, black 35%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 70% 40%, black 35%, transparent 70%);
+}
+
+/* Flag stripes — three thin red bands as decorative accent */
+.flag-stripes {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 0, 0, 0.55) 0px,
+    rgba(255, 0, 0, 0.55) 2px,
+    transparent 2px,
+    transparent 10px
+  );
+}
+
+/* Red flag pulse */
+@keyframes flag-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 0, 0, 0);
+  }
+}
+.flag-pulse {
+  animation: flag-pulse 2.6s ease-in-out infinite;
+}
+
+/* Drawing horizontal line that loops */
+@keyframes line-draw {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  45% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+.line-draw {
+  animation: line-draw 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flag-pulse,
+  .line-draw {
+    animation: none !important;
+  }
 }
