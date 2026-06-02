@@ -55,7 +55,9 @@ export function Button({
     onMouseLeave: handleLeave,
     style: { x: xSpring, y: ySpring },
     className: cn(
-      "group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full px-7 text-[13px] font-medium uppercase tracking-[0.18em] transition-colors duration-500 ease-out",
+      // Mobile-first: smaller, tighter; scale up at sm+ for desktop comfort.
+      "group relative inline-flex h-11 items-center justify-center overflow-hidden rounded-full px-5 text-[11.5px] font-medium uppercase tracking-[0.16em] transition-colors duration-500 ease-out",
+      "sm:h-12 sm:px-7 sm:text-[13px] sm:tracking-[0.18em]",
       variantStyles[variant],
       className,
     ),
@@ -74,7 +76,7 @@ export function Button({
       />
       <motion.span
         style={{ x: innerX, y: innerY }}
-        className="relative z-10 flex items-center gap-2 transition-colors duration-500 group-hover:text-cream"
+        className="relative z-10 flex items-center gap-1.5 transition-colors duration-500 group-hover:text-cream sm:gap-2 [&_svg]:h-3 [&_svg]:w-3 sm:[&_svg]:h-3.5 sm:[&_svg]:w-3.5"
       >
         {children}
       </motion.span>

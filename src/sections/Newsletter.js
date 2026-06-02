@@ -73,7 +73,7 @@ export function Newsletter() {
               }}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col gap-3 overflow-hidden rounded-full border border-cream/15 bg-ink/60 p-2 backdrop-blur sm:flex-row sm:items-center sm:gap-0 sm:pl-6"
+              className="group relative flex flex-col gap-3 overflow-hidden rounded-full border border-cream/15 bg-ink/60 p-2 backdrop-blur transition-[border-color,background-color,box-shadow] duration-300 focus-within:border-ember focus-within:bg-ink/80 focus-within:shadow-[0_0_0_3px_rgba(200,16,46,0.22)] sm:flex-row sm:items-center sm:gap-0 sm:pl-6"
             >
               {/* Inner sheen */}
               <span
@@ -90,7 +90,7 @@ export function Newsletter() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@oregon.com"
-                className="relative flex-1 bg-transparent px-4 py-3 text-cream placeholder:text-cream-muted focus:outline-none sm:px-0"
+                className="relative flex-1 bg-transparent px-4 py-3 text-cream-soft caret-ember placeholder:text-cream-muted focus:outline-none focus-visible:outline-none sm:px-0"
               />
               <Button type="submit" className="relative w-full sm:w-auto">
                 {sent ? "You're in" : "Subscribe"}

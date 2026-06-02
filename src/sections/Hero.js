@@ -144,15 +144,6 @@ export function Hero() {
         className="absolute right-[28%] bottom-[10%] -z-10 h-52 w-52 rounded-full bg-flag-deep/30 blur-3xl"
       />
 
-      {/* Big faded display word */}
-      <motion.div
-        aria-hidden
-        style={{ y: ambientY }}
-        className="pointer-events-none absolute -bottom-10 left-0 right-0 -z-10 select-none text-center font-display text-[28vw] font-semibold leading-none tracking-tighter text-cream/[0.04] sm:text-[20vw]"
-      >
-        OREGON
-      </motion.div>
-
       <div ref={scopeRef}>
         <Container className="relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
           {/* LEFT — text */}
@@ -231,18 +222,18 @@ export function Hero() {
               data-hero-cta
               className="mt-9 flex flex-wrap items-center gap-4"
             >
-              <Button as="a" href="#donate" variant="primary">
-                Chip in $10
+              <Button as="a" href="/volunteer" variant="primary">
+                Join the campaign
                 <Arrow />
               </Button>
-              <Button as="a" href="#issues" variant="outline">
-                Read the platform
+              <Button as="a" href="/about" variant="outline">
+                Meet John
               </Button>
               <a
-                href="#about"
+                href="/events"
                 className="link-underline ml-1 hidden text-sm uppercase tracking-[0.22em] text-cream-muted hover:text-cream sm:inline-block"
               >
-                Meet John
+                Upcoming events
               </a>
             </div>
 
@@ -322,30 +313,6 @@ export function Hero() {
               <StackedCards cards={HERO_CARDS} />
             </motion.div>
 
-            {/* Live ticker tag — sits at top-right, parallaxed */}
-            <motion.div
-              aria-hidden
-              initial={{ opacity: 0, y: -16, rotate: -4 }}
-              animate={{ opacity: 1, y: 0, rotate: -3 }}
-              transition={{ delay: 1.7, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="floaty-rot pointer-events-none absolute -top-3 right-2 hidden items-center gap-2 rounded-full border border-flag/40 bg-flag/15 px-3 py-1.5 text-[10px] uppercase tracking-[0.32em] text-paper backdrop-blur sm:flex"
-            >
-              <span className="grid h-1.5 w-1.5 rounded-full bg-flag flag-pulse" />
-              On the trail
-            </motion.div>
-
-            {/* Coordinate tag — bottom-left, parallaxed */}
-            <motion.div
-              aria-hidden
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.9, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-              className="floaty pointer-events-none absolute -left-2 bottom-20 hidden items-center gap-3 rounded-full border border-navy-soft/60 bg-navy/40 px-3 py-1.5 text-[10px] uppercase tracking-[0.32em] text-paper backdrop-blur md:flex"
-            >
-              <span className="font-mono">45.5°N · 122.6°W</span>
-              <span className="h-1 w-1 rounded-full bg-flag" />
-              <span>Portland</span>
-            </motion.div>
           </motion.div>
         </Container>
 
@@ -355,22 +322,6 @@ export function Hero() {
           data-hero-line
           className="absolute inset-x-0 bottom-0 h-[2px] origin-left bg-ember"
         />
-
-        {/* Scroll cue */}
-        <motion.div
-          aria-hidden
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.4, duration: 1 }}
-          className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.32em] text-cream-muted sm:flex"
-        >
-          <span>Scroll</span>
-          <motion.span
-            animate={{ y: [0, 8, 0], opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-            className="block h-6 w-px bg-cream/60"
-          />
-        </motion.div>
       </div>
     </section>
   );

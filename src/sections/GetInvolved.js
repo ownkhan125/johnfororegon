@@ -14,21 +14,21 @@ const tiles = [
     label: "Volunteer",
     title: "Knock 10 doors. Change a county.",
     body: "Door-to-door is still how races are won. Sign up for two hours and we&apos;ll pair you up.",
-    href: "#volunteer",
+    href: "/volunteer",
     img: "https://picsum.photos/seed/volunteer-door/800/960",
   },
   {
     label: "Donate",
     title: "Chip in $10. Hold the line.",
     body: "We don&apos;t take corporate PAC money. Every dollar comes from people like you.",
-    href: "#donate",
+    href: "/donate",
     img: "https://picsum.photos/seed/grassroots-donate/800/960",
   },
   {
     label: "Host",
     title: "Throw a house party.",
     body: "Invite five neighbors over. We&apos;ll send a campaign organizer and the snacks.",
-    href: "#host",
+    href: "/contact",
     img: "https://picsum.photos/seed/house-party/800/960",
   },
 ];
@@ -158,7 +158,7 @@ export function GetInvolved() {
                 </RevealGroup>
                 <Button
                   as="a"
-                  href="#donate-other"
+                  href="/donate"
                   className="mt-4 w-full"
                   variant="primary"
                 >

@@ -121,11 +121,11 @@ export function About() {
             </Reveal>
 
             <Reveal delay={0.55} className="mt-10 flex flex-wrap gap-4">
-              <Button as="a" href="#issues" variant="primary">
-                See where John stands
+              <Button as="a" href="/about" variant="primary">
+                Read John&apos;s story
               </Button>
-              <Button as="a" href="#endorsements" variant="ghost">
-                Read endorsements
+              <Button as="a" href="/volunteer" variant="ghost">
+                Join the team
               </Button>
             </Reveal>
 

@@ -22,7 +22,22 @@
       "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-hero-mobile-stack.js\")",
       "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-hero-flag.js\")",
       "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-theme.js\")",
-      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-hover-fix.js\")"
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-hover-fix.js\")",
+      "WebFetch(domain:www.drkahlforcongress.com)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-test-pages.js)",
+      "Bash(cygpath -w /tmp)",
+      "Bash(ls C:\\\\\\\\tmp\\\\\\\\john-audit)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-test-scroll.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-final-audit.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-forms-check.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-select-fix.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-footer-audit.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-footer-hover.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-newsletter-focus.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-donate-check.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-baseline.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-zoom.js)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-hero-shot.js)"
     ]
   }
 }

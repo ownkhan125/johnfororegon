@@ -1,22 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 
 const links = [
-  { label: "About", href: "#about" },
-  { label: "Issues", href: "#issues" },
-  { label: "Roadmap", href: "#roadmap" },
-  { label: "Endorsements", href: "#endorsements" },
-  { label: "Events", href: "#events" },
-  { label: "News", href: "#news" },
+  { label: "About", href: "/about" },
+  { label: "Events", href: "/events" },
+  { label: "Volunteer", href: "/volunteer" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const blur = useTransform(scrollY, [0, 200], [0, 14]);
   const backdrop = useTransform(blur, (v) => `blur(${v}px)`);
@@ -35,6 +36,11 @@ export function Navbar() {
     };
   }, [open]);
 
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
     <>
       <motion.header
@@ -51,10 +57,10 @@ export function Navbar() {
               : "bg-transparent border-b border-transparent"
           }`}
         >
-          <Container className="flex h-20 items-center justify-between">
+          <Container className="flex h-16 items-center justify-between sm:h-20">
             {/* Logo */}
-            <a href="#top" className="group flex items-center gap-3">
-              <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-cream/30">
+            <Link href="/" className="group flex items-center gap-2.5 sm:gap-3">
+              <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-full border border-cream/30 sm:h-10 sm:w-10">
                 <span className="absolute inset-0 bg-ember" />
                 <span className="relative font-display text-base font-semibold text-cream">
                   J
@@ -62,48 +68,57 @@ export function Navbar() {
                 <span className="absolute -inset-px rounded-full ring-1 ring-cream/0 transition-all duration-500 group-hover:ring-cream/40" />
               </span>
               <div className="leading-tight">
-                <div className="font-display text-[15px] tracking-tight text-cream">
+                <div className="font-display text-[14px] tracking-tight text-cream sm:text-[15px]">
                   John Hartwell
                 </div>
-                <div className="text-[10px] uppercase tracking-[0.32em] text-cream-muted">
+                <div className="text-[9px] uppercase tracking-[0.30em] text-cream-muted sm:text-[10px] sm:tracking-[0.32em]">
                   For Oregon
                 </div>
               </div>
-            </a>
+            </Link>
 
             {/* Desktop nav */}
             <nav className="hidden items-center gap-8 lg:flex">
-              {links.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.06, duration: 0.6 }}
-                  className="link-underline text-[13px] uppercase tracking-[0.22em] text-cream/85 hover:text-cream"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              {links.map((link, i) => {
+                const active =
+                  pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(link.href));
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + i * 0.06, duration: 0.6 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`link-underline text-[13px] uppercase tracking-[0.22em] transition-colors ${
+                        active ? "text-cream" : "text-cream/85 hover:text-cream"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </nav>
 
             {/* CTA + Mobile toggle */}
-            <div className="flex items-center gap-3">
-              <Button
-                as="a"
-                href="#donate"
-                variant="primary"
-                className="hidden sm:inline-flex"
-              >
-                Donate
-                <ArrowRight />
-              </Button>
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Wrapper owns the visibility so `hidden` can't collide with
+                  the Button's baked-in `inline-flex` (no tailwind-merge). */}
+              <span className="hidden sm:inline-flex">
+                <Button as="a" href="/donate" variant="primary">
+                  Donate
+                  <ArrowRight />
+                </Button>
+              </span>
 
               <button
                 onClick={() => setOpen((v) => !v)}
                 aria-label="Toggle menu"
                 aria-expanded={open}
-                className="relative grid h-11 w-11 place-items-center rounded-full border border-cream/20 text-cream lg:hidden"
+                className="relative grid h-10 w-10 place-items-center rounded-full border border-cream/20 text-cream transition-colors duration-300 hover:border-cream/40 sm:h-11 sm:w-11 lg:hidden"
               >
                 <span className="sr-only">Menu</span>
                 <span className="flex flex-col items-end gap-[5px]">
@@ -149,13 +164,11 @@ export function Navbar() {
               <div className="absolute inset-0 bg-ink" />
               <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-ember" />
               <div className="relative grid h-full grid-rows-[auto_1fr_auto]">
-                <div className="h-20" />
-                <nav className="flex flex-col justify-center gap-1 px-8">
+                <div className="h-16 sm:h-20" />
+                <nav className="flex flex-col justify-center gap-1 px-6 sm:px-8">
                   {links.map((link, i) => (
-                    <motion.a
+                    <motion.div
                       key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
@@ -163,27 +176,32 @@ export function Navbar() {
                         duration: 0.7,
                         ease: [0.22, 1, 0.36, 1],
                       }}
-                      className="group flex items-center justify-between border-b border-cream/10 py-5 font-display text-3xl tracking-tight text-cream sm:text-4xl"
                     >
-                      <span className="flex items-center gap-4">
-                        <span className="text-xs font-sans tracking-[0.32em] text-cream-muted">
-                          0{i + 1}
+                      <Link
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className="group flex items-center justify-between border-b border-cream/10 py-5 font-display text-3xl tracking-tight text-cream sm:text-4xl"
+                      >
+                        <span className="flex items-center gap-4">
+                          <span className="text-xs font-sans tracking-[0.32em] text-cream-muted">
+                            0{i + 1}
+                          </span>
+                          {link.label}
                         </span>
-                        {link.label}
-                      </span>
-                      <ArrowRight className="opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:opacity-100" />
-                    </motion.a>
+                        <ArrowRight className="opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:opacity-100" />
+                      </Link>
+                    </motion.div>
                   ))}
                 </nav>
                 <motion.div
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.7 }}
-                  className="border-t border-cream/10 px-8 py-7"
+                  className="border-t border-cream/10 px-6 py-7 sm:px-8"
                 >
                   <Button
                     as="a"
-                    href="#donate"
+                    href="/donate"
                     onClick={() => setOpen(false)}
                     className="w-full"
                   >

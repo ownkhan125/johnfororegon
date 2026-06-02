@@ -118,7 +118,7 @@ export function News() {
                 dangerouslySetInnerHTML={{ __html: p.excerpt }}
               />
               <a
-                href="#post"
+                href="/contact"
                 className="link-underline mt-auto inline-flex w-fit items-center gap-2 text-[12px] uppercase tracking-[0.22em] text-cream"
               >
                 Read the piece

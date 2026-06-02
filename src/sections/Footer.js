@@ -1,100 +1,171 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "motion/react";
 import { Container } from "@/components/Container";
-import { Reveal, RevealGroup, revealItem } from "@/components/Reveal";
+import { Reveal } from "@/components/Reveal";
+import { SocialIcons } from "@/components/SocialIcons";
 
-const cols = [
+const linkColumns = [
   {
-    title: "Campaign",
-    links: ["About John", "Issues", "Roadmap", "Endorsements", "Press"],
+    title: "Quick Links",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About", href: "/about" },
+      { label: "Events", href: "/events" },
+    ],
   },
   {
     title: "Get Involved",
-    links: ["Donate", "Volunteer", "Host an event", "Yard signs", "Phone bank"],
+    links: [
+      { label: "Volunteer", href: "/volunteer" },
+      { label: "Donate", href: "/donate" },
+      { label: "Contact", href: "/contact" },
+    ],
   },
   {
-    title: "Connect",
-    links: ["Newsletter", "Instagram", "TikTok", "Facebook", "Spotify"],
+    title: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+    ],
   },
+];
+
+const contactRows = [
+  { label: "Call", value: "(503) 555-0101", href: "tel:+15035550101" },
+  {
+    label: "Email",
+    value: "info@johnfororegon.com",
+    href: "mailto:info@johnfororegon.com",
+  },
+  { label: "Mail", value: "PO Box 1776, Salem, OR 97301" },
 ];
 
 export function Footer() {
   return (
     <footer className="relative isolate overflow-hidden bg-ink">
-      {/* Top border */}
+      {/* Top accent line — draws in on view */}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         style={{ transformOrigin: "left" }}
-        className="h-px bg-ember/40"
+        aria-hidden
+        className="h-px bg-ember/60"
       />
 
-      <Container className="py-20 sm:py-24">
-        {/* Massive display lockup */}
-        <Reveal y={50} duration={1.2}>
-          <h2 className="font-display text-[clamp(3rem,12vw,12rem)] font-light leading-[0.85] tracking-[-0.04em] text-cream">
-            JOHN
-            <span className="block text-cream/30">FOR OREGON</span>
-          </h2>
-        </Reveal>
+      {/* Subtle ambient wash so the footer reads as its own surface */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_50%_at_85%_0%,rgba(200,16,46,0.10),transparent_65%)]"
+      />
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
-          <Reveal delay={0.2} className="max-w-sm">
-            <p className="text-cream/75">
-              A people-powered campaign for U.S. Senate, 2026. No corporate
-              PAC money. No backroom deals. Just Oregon.
+      <Container className="py-16 sm:py-20">
+        <div className="grid gap-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-[1.35fr_1fr_1fr_0.85fr] lg:gap-14">
+          {/* Brand block */}
+          <Reveal y={24} className="max-w-sm">
+            <Link href="/" className="group inline-flex items-center gap-3">
+              <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-cream/30 transition-colors duration-500 group-hover:border-cream/60">
+                <span className="absolute inset-0 bg-ember" />
+                <span className="relative font-display text-base font-semibold text-cream">
+                  J
+                </span>
+              </span>
+              <div className="leading-tight">
+                <div className="font-display text-[15px] tracking-tight text-cream">
+                  John Hartwell
+                </div>
+                <div className="text-[10px] uppercase tracking-[0.32em] text-cream-muted">
+                  For Oregon · 2026
+                </div>
+              </div>
+            </Link>
+
+            <p className="mt-6 text-sm leading-relaxed text-cream/70">
+              A people-powered U.S. Senate campaign. No corporate PAC money.
+              No backroom deals. Just Oregon.
             </p>
-            <div className="mt-6 flex items-center gap-4">
-              {["X", "IG", "FB", "TT"].map((s) => (
-                <motion.a
-                  key={s}
-                  href={`#${s}`}
-                  whileHover={{ y: -3 }}
-                  className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 text-[11px] uppercase tracking-[0.2em] text-cream transition-colors duration-300 hover:bg-cream hover:text-ink"
-                >
-                  {s}
-                </motion.a>
-              ))}
+
+            <div className="mt-8">
+              <div className="text-[10px] uppercase tracking-[0.32em] text-cream-muted">
+                Follow the campaign
+              </div>
+              <SocialIcons variant="bordered" size="md" className="mt-4" />
             </div>
           </Reveal>
 
-          <RevealGroup
-            stagger={0.1}
-            delay={0.3}
-            className="contents"
-          >
-            {cols.map((c) => (
-              <motion.div key={c.title} variants={revealItem}>
-                <div className="text-[11px] uppercase tracking-[0.32em] text-cream-muted">
-                  {c.title}
-                </div>
-                <ul className="mt-5 space-y-3">
-                  {c.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href="#"
-                        className="link-underline text-sm text-cream/85 hover:text-cream"
-                      >
-                        {l}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </RevealGroup>
+          {/* Link columns — each gets its own reveal so the intersection
+              observer fires reliably (RevealGroup with display:contents has
+              no box and never triggers). */}
+          {linkColumns.map((col, i) => (
+            <Reveal
+              key={col.title}
+              y={28}
+              delay={0.25 + i * 0.08}
+              duration={0.8}
+            >
+              <div className="text-[10px] uppercase tracking-[0.32em] text-cream-muted">
+                {col.title}
+              </div>
+              <ul className="mt-5 space-y-3">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      href={l.href}
+                      className="group relative inline-flex items-center gap-3 text-sm text-cream/80 transition-colors duration-300 hover:text-cream-soft"
+                    >
+                      <span
+                        aria-hidden
+                        className="block h-px w-0 bg-ember transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-5"
+                      />
+                      <span>{l.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ))}
         </div>
 
-        <Reveal delay={0.55} className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-cream/10 pt-8 sm:flex-row sm:items-center">
+        {/* Contact strip — separate row, breathing room */}
+        <Reveal
+          delay={0.4}
+          className="mt-14 grid gap-8 border-t border-cream/10 pt-10 sm:grid-cols-3"
+        >
+          {contactRows.map((c) => (
+            <div key={c.label} className="text-sm">
+              <div className="text-[10px] uppercase tracking-[0.32em] text-cream-muted">
+                {c.label}
+              </div>
+              <div className="mt-2 font-display text-base font-light text-cream">
+                {c.href ? (
+                  <a
+                    href={c.href}
+                    className="link-underline transition-colors hover:text-cream-soft"
+                  >
+                    {c.value}
+                  </a>
+                ) : (
+                  <span>{c.value}</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </Reveal>
+
+        {/* Copyright strip */}
+        <Reveal
+          delay={0.55}
+          className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-cream/10 pt-6 sm:flex-row sm:items-center"
+        >
           <p className="text-[11px] uppercase tracking-[0.28em] text-cream-muted">
-            Paid for by Hartwell for Oregon. Not authorized by any candidate or
-            candidate&apos;s committee.
+            © 2026 Hartwell for Oregon · Built in Salem, OR
           </p>
           <p className="text-[11px] uppercase tracking-[0.28em] text-cream-muted">
-            © 2026 · Built in Salem, OR
+            Paid for by Hartwell for Oregon · Not authorized by any candidate
+            or candidate&apos;s committee.
           </p>
         </Reveal>
       </Container>

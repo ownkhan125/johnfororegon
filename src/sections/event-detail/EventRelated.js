@@ -7,45 +7,46 @@ import { Container } from "@/components/Container";
 import { SectionFrame } from "@/components/SectionFrame";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { Reveal, RevealGroup, revealItem } from "@/components/Reveal";
-import { Button } from "@/components/Button";
 import { GlowCard } from "@/components/GlowCard";
-import { EVENTS } from "@/data/events";
 
-const featured = EVENTS.slice(0, 4);
+export function EventRelated({ events }) {
+  if (!events?.length) return null;
 
-export function Events() {
   return (
     <SectionFrame
-      id="events"
-      eyebrow="05 · On the Road"
-      className="relative bg-ink py-28 sm:py-36"
+      eyebrow="06 · More Coming Up"
+      className="relative bg-bark py-28 sm:py-36"
     >
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-16">
           <AnimatedHeading
-            text="Come find us. We'll bring the coffee."
+            text="Related upcoming events."
             className="font-display text-4xl font-light leading-[1.05] tracking-tight text-cream sm:text-5xl"
           />
           <Reveal delay={0.3} className="max-w-md text-cream/75 lg:justify-self-end">
             <p className="leading-relaxed">
-              The single best way to know a candidate is to look them in the
-              eye. Here&apos;s where John will be this month — every event is
-              free and open.
+              Three more chances to catch the campaign in the next few weeks.
+              Free, open, and on the trail.
             </p>
-            <div className="mt-6">
-              <Button as="a" href="/events" variant="ghost">
-                See all events
-              </Button>
-            </div>
           </Reveal>
         </div>
+
+        <motion.div
+          aria-hidden
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          style={{ transformOrigin: "left" }}
+          className="mt-14 h-px w-full bg-ember/40"
+        />
 
         <RevealGroup
           stagger={0.1}
           delay={0.35}
-          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {featured.map((ev) => (
+          {events.map((ev) => (
             <GlowCard
               key={ev.slug}
               as="article"
@@ -54,7 +55,7 @@ export function Events() {
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               glow="rgba(200,16,46,0.22)"
               size={420}
-              className="relative flex flex-col overflow-hidden rounded-3xl border border-cream/10 bg-bark"
+              className="relative flex flex-col overflow-hidden rounded-3xl border border-cream/10 bg-ink"
             >
               <Link
                 href={`/events/${ev.slug}`}
@@ -63,6 +64,7 @@ export function Events() {
               >
                 <span className="sr-only">{ev.title}</span>
               </Link>
+
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <motion.div
                   whileHover={{ scale: 1.06 }}
@@ -73,45 +75,35 @@ export function Events() {
                     src={ev.img}
                     alt={ev.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 25vw"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover"
                   />
                 </motion.div>
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent" />
-                <motion.div
-                  initial={{ opacity: 0, y: -8, scale: 0.92 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.5,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="floaty absolute left-4 top-4 grid h-16 w-16 place-items-center rounded-2xl border border-cream/30 bg-ink/50 backdrop-blur"
-                >
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
+                <div className="absolute left-4 top-4 grid h-14 w-14 place-items-center rounded-2xl border border-cream/30 bg-ink/55 backdrop-blur">
                   <div className="text-center">
                     <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-cream-muted">
                       {ev.day}
                     </div>
-                    <div className="font-display text-sm leading-tight text-cream">
+                    <div className="font-display text-xs leading-tight text-cream">
                       {ev.date}
                     </div>
                   </div>
-                </motion.div>
-                <div className="absolute right-4 top-4 rounded-full border border-cream/30 bg-ink/40 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-cream backdrop-blur">
-                  {ev.time}
                 </div>
+                <span className="absolute right-4 top-4 rounded-full border border-flag/40 bg-flag/20 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-paper backdrop-blur">
+                  {ev.type}
+                </span>
               </div>
 
               <div className="relative flex flex-1 flex-col gap-3 p-5 sm:p-6">
-                <h3 className="font-display text-xl font-light leading-snug text-cream">
+                <h3 className="font-display text-lg font-light leading-snug text-cream">
                   {ev.title}
                 </h3>
                 <div className="text-[12px] uppercase tracking-[0.18em] text-cream-muted">
                   {ev.venue} · {ev.city}
                 </div>
                 <div className="mt-auto flex items-center justify-between pt-4">
-                  <span className="text-xs text-cream/70">{ev.type}</span>
+                  <span className="text-xs text-cream/70">{ev.time}</span>
                   <span className="link-underline text-[11px] uppercase tracking-[0.22em] text-cream">
                     Details →
                   </span>
