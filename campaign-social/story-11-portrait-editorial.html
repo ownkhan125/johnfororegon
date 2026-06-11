@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 11 — Vertical Portrait Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a1628;--ember:#c8102e;--umber:#8b0e22;--cream:#f5f5f5;
+    --serif:'Fraunces',serif;--sans:'Inter',system-ui,sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#000;display:grid;place-items:center;min-height:100vh}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;color:var(--cream);font-family:var(--sans);
+    background:radial-gradient(70% 50% at 50% 0%, #1c2e58, #0a1628 60%);isolation:isolate}
+  .washes{position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(45% 30% at 90% 10%, rgba(200,16,46,.45), transparent 60%),
+      radial-gradient(50% 30% at 0% 80%, rgba(139,14,34,.35), transparent 60%);}
+  .grid-bg{position:absolute;inset:0;z-index:1;opacity:.45;
+    background-image:
+      linear-gradient(to right, rgba(200,16,46,.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(245,245,245,.04) 1px, transparent 1px);
+    background-size:60px 60px;
+    -webkit-mask-image:radial-gradient(circle at 50% 40%, #000 30%, transparent 80%);}
+  .grain{position:absolute;inset:0;z-index:9;opacity:.16;mix-blend-mode:overlay;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/></svg>");}
+  /* Vertical flag stripes left */
+  .stripes{position:absolute;left:50px;top:140px;bottom:520px;width:8px;z-index:6;
+    background:repeating-linear-gradient(to bottom, var(--ember) 0 8px, transparent 8px 18px)}
+  /* Eyebrow top right */
+  .eyebrow{position:absolute;top:110px;right:80px;z-index:6;display:flex;align-items:center;gap:14px;
+    font-size:14px;letter-spacing:.42em;text-transform:uppercase;color:#a3b1c2;writing-mode:vertical-rl;transform:rotate(180deg);}
+  .eyebrow .rule{width:42px;height:1px;background:rgba(245,245,245,.5)}
+  .eyebrow .dot{width:8px;height:8px;background:var(--ember);border-radius:50%;box-shadow:0 0 16px rgba(200,16,46,.8)}
+  /* Big portrait stage */
+  .portrait-stage{position:absolute;left:110px;right:110px;top:220px;height:920px;perspective:1800px;z-index:4}
+  .p-frame-1{position:absolute;inset:-40px;border:1px solid rgba(245,245,245,.18);border-radius:24px;transform:translateZ(0)}
+  .p-frame-2{position:absolute;inset:30px;border:1px solid rgba(200,16,46,.45);border-radius:24px;transform:translateZ(20px)}
+  .portrait{position:absolute;inset:0;border-radius:18px;overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(10,22,40,0) 30%, rgba(10,22,40,.7) 100%),
+      url('https://picsum.photos/seed/story-portrait-tall/900/1400') center/cover;
+    box-shadow:
+      0 80px 160px -40px rgba(0,0,0,.75),
+      0 40px 80px -30px rgba(200,16,46,.45),
+      inset 0 1px 0 rgba(255,255,255,.1);
+    filter:contrast(1.05) saturate(.9);
+    transform:rotateY(-2deg) rotateX(1deg) translateZ(50px);
+    transform-style:preserve-3d;
+  }
+  .portrait::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg, rgba(255,255,255,.1), transparent 35%);mix-blend-mode:overlay}
+  .seal{position:absolute;left:-40px;top:80px;width:130px;height:130px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #e8454d, var(--umber) 70%);
+    color:#fff;display:grid;place-items:center;text-align:center;font-family:var(--serif);font-style:italic;font-size:14px;line-height:1.1;
+    box-shadow:0 30px 60px -20px rgba(139,14,34,.6), inset 0 -4px 0 rgba(0,0,0,.3), inset 0 3px 0 rgba(255,255,255,.35);
+    transform:rotate(-10deg) translateZ(100px)}
+  .seal::after{content:'';position:absolute;inset:8px;border-radius:50%;border:1px dashed rgba(255,255,255,.6)}
+  .seal span{position:relative;font-style:normal;font-weight:500;letter-spacing:.18em;text-transform:uppercase;font-size:11px}
+  /* Caption card */
+  .cap{position:absolute;right:-30px;bottom:80px;width:340px;padding:24px 28px;border-radius:18px;z-index:7;
+    background:linear-gradient(180deg, rgba(245,245,245,.07), rgba(245,245,245,.02));
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(245,245,245,.15);
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1);
+    transform:translateZ(120px)}
+  .cap .l{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#a3b1c2}
+  .cap .h{margin-top:10px;font-family:var(--serif);font-weight:300;font-style:italic;font-size:24px;color:#fff;line-height:1.18}
+  .cap .stripes{margin-top:14px;height:6px;width:60px;background:repeating-linear-gradient(90deg, var(--ember) 0 4px, transparent 4px 10px)}
+
+  /* Headline lower section */
+  .head{position:absolute;left:110px;right:110px;bottom:200px;z-index:6}
+  .head h1{font-family:var(--serif);font-weight:300;font-size:108px;line-height:.94;letter-spacing:-.025em;color:#fff}
+  .head h1 em{font-style:italic;color:var(--ember);font-weight:400}
+  .head .rule{margin-top:30px;width:120px;height:1px;background:rgba(245,245,245,.5)}
+  .head .body{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.5;color:rgba(245,245,245,.78);max-width:600px}
+  /* Bottom band */
+  .baseline{position:absolute;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg, var(--umber), var(--ember), var(--umber));z-index:9}
+  .corner-mark{position:absolute;bottom:60px;left:110px;z-index:7;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#a3b1c2}
+  .corner-mark span{color:#fff}
+  .corner-mark-r{position:absolute;bottom:60px;right:110px;z-index:7;font-family:var(--serif);font-style:italic;font-size:18px;color:#b8c0cc}
+  /* Corner brackets */
+  .br{position:absolute;width:26px;height:26px;border:1px solid var(--ember);z-index:8}
+  .br.tl{top:50px;left:50px;border-right:0;border-bottom:0}
+  .br.tr{top:50px;right:50px;border-left:0;border-bottom:0}
+  .br.bl{bottom:50px;left:50px;border-right:0;border-top:0}
+  .br.br2{bottom:50px;right:50px;border-left:0;border-top:0}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="washes"></div>
+    <div class="grid-bg"></div>
+    <div class="stripes"></div>
+    <div class="br tl"></div><div class="br tr"></div><div class="br bl"></div><div class="br br2"></div>
+
+    <div class="eyebrow"><span class="rule"></span><span class="dot"></span>Lorem · Ipsum · MMXXVI</div>
+
+    <div class="portrait-stage">
+      <div class="p-frame-1"></div>
+      <div class="p-frame-2"></div>
+      <div class="portrait"></div>
+      <div class="seal"><span>Lorem<br/>Ipsum<br/>2026</span></div>
+      <div class="cap">
+        <div class="l">Lorem · Ipsum</div>
+        <div class="h">Dolor sit amet, consectetur adipiscing.</div>
+        <div class="stripes"></div>
+      </div>
+    </div>
+
+    <div class="head">
+      <h1>Lorem<br/><em>ipsum.</em><br/>Dolor sit.</h1>
+      <div class="rule"></div>
+      <p class="body">Consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+
+    <div class="corner-mark">Lorem · <span>Ipsum dolor</span> · Vol. 11</div>
+    <div class="corner-mark-r">— No. XI</div>
+    <div class="grain"></div>
+    <div class="baseline"></div>
+  </div>
+</body>
+</html>

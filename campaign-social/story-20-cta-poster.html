@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 20 — CTA Poster</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,300&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a1628;--ember:#c8102e;--umber:#8b0e22;--cream:#f5f5f5;
+    --serif:'Fraunces',serif;--sans:'Inter',system-ui,sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#000;display:grid;place-items:center;min-height:100vh}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;color:var(--cream);font-family:var(--sans);
+    background:radial-gradient(90% 50% at 50% 0%, #2a1828 0%, #14101f 50%, #060812 100%);isolation:isolate;perspective:1800px}
+  .washes{position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(60% 45% at 50% 22%, rgba(200,16,46,.5), transparent 60%),
+      radial-gradient(60% 45% at 50% 100%, rgba(139,14,34,.45), transparent 60%);}
+  .grid-bg{position:absolute;inset:0;z-index:1;opacity:.45;
+    background-image:
+      linear-gradient(to right, rgba(200,16,46,.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(245,245,245,.04) 1px, transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 30%, transparent 80%);}
+  .grain{position:absolute;inset:0;z-index:9;opacity:.16;mix-blend-mode:overlay;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/></svg>");}
+  /* Floating ambient orbs */
+  .orb{position:absolute;border-radius:50%;filter:blur(100px);z-index:0;mix-blend-mode:screen}
+  .orb.a{left:-12%;top:8%;width:420px;height:420px;background:#c8102e;opacity:.35}
+  .orb.b{right:-15%;top:55%;width:480px;height:480px;background:#3a1a52;opacity:.5}
+  .orb.c{left:30%;bottom:-10%;width:380px;height:380px;background:#8b0e22;opacity:.45}
+  /* Vertical accent stripes */
+  .stripes-l{position:absolute;left:54px;top:300px;width:8px;height:1100px;background:repeating-linear-gradient(to bottom, var(--ember) 0 8px, transparent 8px 18px);z-index:6}
+  .stripes-r{position:absolute;right:54px;top:300px;width:8px;height:1100px;background:repeating-linear-gradient(to bottom, var(--ember) 0 8px, transparent 8px 18px);z-index:6}
+  /* Top */
+  .top{position:absolute;top:130px;left:0;right:0;text-align:center;z-index:6}
+  .eyebrow{font-size:14px;letter-spacing:.5em;text-transform:uppercase;color:#cfd6e0;display:inline-flex;align-items:center;gap:14px}
+  .eyebrow .dot{width:8px;height:8px;background:var(--ember);border-radius:50%;box-shadow:0 0 16px rgba(200,16,46,.9)}
+  /* Sun rays */
+  .rays{position:absolute;left:50%;top:300px;width:1200px;height:1200px;transform:translateX(-50%);z-index:1;
+    background:conic-gradient(from 0deg,
+      transparent 0deg, rgba(200,16,46,.0) 12deg,
+      rgba(200,16,46,.06) 13deg, transparent 14deg,
+      transparent 26deg, rgba(245,245,245,.04) 27deg, transparent 28deg,
+      transparent 40deg, rgba(200,16,46,.06) 41deg, transparent 42deg,
+      transparent 54deg, rgba(245,245,245,.04) 55deg, transparent 56deg,
+      transparent 68deg, rgba(200,16,46,.06) 69deg, transparent 70deg);
+    -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 25%, transparent 70%);
+            mask-image:radial-gradient(circle at 50% 50%, #000 25%, transparent 70%);}
+  /* Massive vertical headline */
+  .head{position:absolute;left:0;right:0;top:280px;z-index:6;text-align:center;padding:0 80px}
+  .head h1{font-family:var(--serif);font-weight:200;font-size:220px;line-height:.86;letter-spacing:-.045em;color:#fff;
+    text-shadow:0 30px 80px rgba(200,16,46,.45)}
+  .head h1 .it{font-style:italic;font-weight:300}
+  .head h1 .red{color:var(--ember)}
+  /* Subhead */
+  .sub{position:absolute;left:0;right:0;top:1020px;z-index:6;text-align:center;padding:0 80px}
+  .sub p{font-family:var(--serif);font-style:italic;font-weight:300;font-size:30px;line-height:1.4;color:rgba(245,245,245,.85);max-width:780px;margin:0 auto}
+  /* 3D Button */
+  .btn-stage{position:absolute;left:0;right:0;top:1240px;z-index:7;display:grid;place-items:center;perspective:1200px}
+  .btn{position:relative;display:inline-flex;align-items:center;gap:24px;
+    padding:34px 56px;border-radius:999px;
+    background:linear-gradient(180deg, #f25762 0%, var(--ember) 45%, var(--umber) 100%);
+    color:#fff;
+    font-family:var(--sans);font-size:18px;letter-spacing:.42em;text-transform:uppercase;font-weight:700;
+    box-shadow:
+      0 60px 100px -30px rgba(200,16,46,.7),
+      0 30px 60px -20px rgba(0,0,0,.6),
+      inset 0 2px 0 rgba(255,255,255,.35),
+      inset 0 -4px 0 rgba(0,0,0,.3),
+      0 0 0 6px rgba(10,22,40,.6),
+      0 0 0 7px rgba(200,16,46,.4);
+    transform:translateZ(60px) rotateX(8deg);
+    transform-style:preserve-3d;}
+  .btn::before{content:'';position:absolute;inset:6px;border-radius:999px;border:1px dashed rgba(255,255,255,.35);pointer-events:none}
+  .btn .arrow{display:inline-block;width:50px;height:1px;background:#fff;position:relative}
+  .btn .arrow::after{content:'';position:absolute;right:-1px;top:-5px;width:12px;height:12px;border-right:2px solid #fff;border-top:2px solid #fff;transform:rotate(45deg)}
+  .btn-shadow{position:absolute;left:50%;top:120%;width:60%;height:40px;background:radial-gradient(closest-side, rgba(200,16,46,.6), transparent 70%);filter:blur(20px);transform:translateX(-50%)}
+  /* Lower note */
+  .note{position:absolute;left:0;right:0;top:1490px;z-index:6;text-align:center;font-size:13px;letter-spacing:.42em;text-transform:uppercase;color:#a3b1c2}
+  .note span{color:#fff}
+  /* Bottom rosette */
+  .rosette{position:absolute;left:50%;bottom:240px;transform:translateX(-50%);width:120px;height:120px;z-index:6;perspective:600px}
+  .rosette .core{position:absolute;inset:0;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #f25762, var(--umber) 75%);
+    box-shadow:
+      inset 0 -6px 0 rgba(0,0,0,.3),
+      inset 0 4px 0 rgba(255,255,255,.35),
+      0 28px 50px -15px rgba(139,14,34,.7),
+      0 0 0 5px rgba(10,22,40,.9),
+      0 0 0 6px rgba(245,245,245,.18);
+    transform:rotateX(8deg)}
+  .rosette .core::after{content:'';position:absolute;inset:10px;border-radius:50%;border:1px dashed rgba(255,255,255,.45)}
+  .rosette .text{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;color:#fff;font-family:var(--serif);font-style:italic;font-size:14px;line-height:1.1}
+  .rosette .text small{display:block;font-size:9px;letter-spacing:.32em;font-style:normal;margin-top:2px}
+  /* corners */
+  .br{position:absolute;width:24px;height:24px;border:1px solid var(--ember);z-index:8}
+  .br.tl{top:54px;left:54px;border-right:0;border-bottom:0}
+  .br.tr{top:54px;right:54px;border-left:0;border-bottom:0}
+  .br.bl{bottom:54px;left:54px;border-right:0;border-top:0}
+  .br.br2{bottom:54px;right:54px;border-left:0;border-top:0}
+  .baseline{position:absolute;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg, var(--umber), var(--ember), var(--umber));z-index:9}
+  .footer-mark{position:absolute;bottom:90px;left:90px;right:90px;z-index:7;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:#a3b1c2}
+  .footer-mark span{color:#fff}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="washes"></div>
+    <div class="rays"></div>
+    <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+    <div class="grid-bg"></div>
+    <div class="br tl"></div><div class="br tr"></div><div class="br bl"></div><div class="br br2"></div>
+    <div class="stripes-l"></div><div class="stripes-r"></div>
+
+    <div class="top">
+      <div class="eyebrow"><span class="dot"></span>Lorem · Ipsum · MMXXVI</div>
+    </div>
+
+    <div class="head">
+      <h1>Lorem<br/><span class="it">ipsum,</span><br/><span class="red">dolor.</span></h1>
+    </div>
+
+    <div class="sub">
+      <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+    </div>
+
+    <div class="btn-stage">
+      <div class="btn">Lorem ipsum <span class="arrow"></span></div>
+      <div class="btn-shadow"></div>
+    </div>
+
+    <div class="note">Lorem &middot; <span>ipsum dolor</span> &middot; sit amet</div>
+
+    <div class="rosette">
+      <div class="core"></div>
+      <div class="text"><span>1776</span><small>Lorem · Ipsum</small></div>
+    </div>
+
+    <div class="footer-mark"><div>Lorem · Ipsum dolor</div><div>Vol. 20 — <span>MMXXVI</span></div></div>
+    <div class="grain"></div>
+    <div class="baseline"></div>
+  </div>
+</body>
+</html>

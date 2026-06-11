@@ -37,7 +37,11 @@
       "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-donate-check.js)",
       "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-baseline.js)",
       "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-zoom.js)",
-      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-hero-shot.js)"
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-hero-shot.js)",
+      "Bash(node -e \"require\\('./lib/helpers'\\).detectDevServers\\(\\).then\\(servers => console.log\\(JSON.stringify\\(servers\\)\\)\\)\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-render-campaign.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-qa-render.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-qa-render2.js\")"
     ]
   }
 }
