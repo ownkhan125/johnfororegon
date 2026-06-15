@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 18 — Layered Portrait Stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a1628;--ember:#c8102e;--umber:#8b0e22;--cream:#f5f5f5;
+    --serif:'Fraunces',serif;--sans:'Inter',system-ui,sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#000;display:grid;place-items:center;min-height:100vh}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;color:var(--cream);font-family:var(--sans);
+    background:radial-gradient(100% 60% at 80% 20%, #1f3568, #0a1628 70%);isolation:isolate;perspective:1800px}
+  .washes{position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(50% 35% at 90% 12%, rgba(200,16,46,.4), transparent 60%),
+      radial-gradient(55% 40% at 0% 80%, rgba(139,14,34,.3), transparent 60%);}
+  .grid-bg{position:absolute;inset:0;z-index:1;opacity:.4;
+    background-image:
+      linear-gradient(to right, rgba(200,16,46,.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(245,245,245,.04) 1px, transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 30%, transparent 80%);}
+  .grain{position:absolute;inset:0;z-index:9;opacity:.16;mix-blend-mode:overlay;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/></svg>");}
+  /* Vertical stripes accent right */
+  .stripes-r{position:absolute;right:54px;top:300px;width:8px;height:1100px;
+    background:repeating-linear-gradient(to bottom, var(--ember) 0 8px, transparent 8px 18px);z-index:6}
+  /* Vertical text label */
+  .v-label{position:absolute;left:78px;top:280px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;letter-spacing:.46em;text-transform:uppercase;color:#a3b1c2;z-index:6}
+  .v-label span{color:var(--ember)}
+  /* Top */
+  .top{position:absolute;top:120px;left:130px;right:130px;z-index:6;display:flex;justify-content:space-between;align-items:flex-start;font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:#a3b1c2}
+  .top .l{display:flex;align-items:center;gap:14px}
+  .top .l::before{content:'';width:8px;height:8px;background:var(--ember);border-radius:50%}
+  /* Portrait stack */
+  .stack{position:absolute;left:160px;right:160px;top:280px;height:820px;z-index:4;transform-style:preserve-3d}
+  .layer{position:absolute;border-radius:18px;overflow:hidden;transform-style:preserve-3d}
+  .l-back{inset:0;border:1px solid rgba(200,16,46,.5);background:rgba(245,245,245,.02);transform:translate(-40px,-30px) rotateZ(-3deg)}
+  .l-mid{inset:0;border:1px solid rgba(245,245,245,.2);background:rgba(245,245,245,.04);transform:translate(-20px,-12px) rotateZ(-1deg)}
+  .l-front{inset:0;overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(10,22,40,.0) 35%, rgba(10,22,40,.7) 100%),
+      url('https://picsum.photos/seed/portrait-layer/900/1400') center/cover;
+    box-shadow:
+      0 80px 160px -40px rgba(0,0,0,.7),
+      0 40px 80px -30px rgba(200,16,46,.45),
+      inset 0 1px 0 rgba(255,255,255,.1);
+    filter:contrast(1.06) saturate(.9);
+    transform:translateZ(40px);
+  }
+  .l-front::after{content:'';position:absolute;inset:0;background:linear-gradient(155deg, rgba(255,255,255,.1), transparent 35%);mix-blend-mode:overlay}
+  /* Caption pill */
+  .pill{position:absolute;left:30px;top:30px;background:rgba(10,22,40,.7);backdrop-filter:blur(14px);
+    border:1px solid rgba(245,245,245,.18);padding:10px 18px;border-radius:999px;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:#fff;z-index:5;
+    box-shadow:0 18px 40px -15px rgba(0,0,0,.6)}
+  .pill::before{content:'';display:inline-block;width:8px;height:8px;background:var(--ember);border-radius:50%;margin-right:10px;vertical-align:middle;box-shadow:0 0 14px rgba(200,16,46,.9)}
+  /* Quote card overlay */
+  .quote{position:absolute;left:-30px;right:-30px;bottom:80px;padding:30px 36px;border-radius:18px;z-index:7;
+    background:linear-gradient(180deg, rgba(10,22,40,.96), rgba(10,22,40,.88));
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(245,245,245,.22);
+    box-shadow:0 50px 100px -30px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1)}
+  .quote .l{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--ember)}
+  .quote .h{margin-top:10px;font-family:var(--serif);font-weight:300;font-style:italic;font-size:30px;color:#fff;line-height:1.16;letter-spacing:-.01em}
+  .quote .h em{font-style:italic;color:var(--ember)}
+  .quote .stripes{margin-top:18px;height:6px;width:80px;background:repeating-linear-gradient(90deg, var(--ember) 0 4px, transparent 4px 10px)}
+
+  /* Footer headline */
+  .foot-head{position:absolute;left:130px;right:130px;top:1200px;z-index:6}
+  .foot-head h2{font-family:var(--serif);font-weight:300;font-size:78px;line-height:.96;letter-spacing:-.02em;color:#fff}
+  .foot-head h2 em{font-style:italic;color:var(--ember)}
+  .foot-head .body{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.55;color:rgba(245,245,245,.78);max-width:680px}
+  .foot-head .rule{margin:26px 0 0;width:120px;height:1px;background:rgba(245,245,245,.45)}
+
+  /* corners */
+  .br{position:absolute;width:24px;height:24px;border:1px solid var(--ember);z-index:8}
+  .br.tl{top:54px;left:54px;border-right:0;border-bottom:0}
+  .br.tr{top:54px;right:54px;border-left:0;border-bottom:0}
+  .br.bl{bottom:54px;left:54px;border-right:0;border-top:0}
+  .br.br2{bottom:54px;right:54px;border-left:0;border-top:0}
+  .baseline{position:absolute;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg, var(--umber), var(--ember), var(--umber));z-index:9}
+  .footer-mark{position:absolute;bottom:80px;left:130px;right:130px;z-index:7;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:#a3b1c2}
+  .footer-mark span{color:#fff}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="washes"></div>
+    <div class="grid-bg"></div>
+    <div class="br tl"></div><div class="br tr"></div><div class="br bl"></div><div class="br br2"></div>
+    <div class="stripes-r"></div>
+    <div class="v-label">Lorem &middot; <span>ipsum</span> &middot; dolor</div>
+
+    <div class="top">
+      <div class="l">Lorem · Ipsum · MMXXVI</div>
+      <div>No. XVIII</div>
+    </div>
+
+    <div class="stack">
+      <div class="layer l-back"></div>
+      <div class="layer l-mid"></div>
+      <div class="layer l-front">
+        <div class="pill">Lorem · Ipsum</div>
+        <div class="quote">
+          <div class="l">Lorem · Ipsum</div>
+          <div class="h">Lorem ipsum <em>dolor sit</em> amet, consectetur adipiscing elit.</div>
+          <div class="stripes"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-head">
+      <h2>Lorem ipsum <em>dolor</em><br/>sit amet, consectetur.</h2>
+      <div class="rule"></div>
+      <div class="body">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</div>
+    </div>
+
+    <div class="footer-mark"><div>Lorem · Ipsum dolor</div><div>Vol. 18 — <span>MMXXVI</span></div></div>
+    <div class="grain"></div>
+    <div class="baseline"></div>
+  </div>
+</body>
+</html>

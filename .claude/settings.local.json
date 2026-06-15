@@ -41,7 +41,28 @@
       "Bash(node -e \"require\\('./lib/helpers'\\).detectDevServers\\(\\).then\\(servers => console.log\\(JSON.stringify\\(servers\\)\\)\\)\")",
       "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-render-campaign.js\")",
       "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-qa-render.js\")",
-      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-qa-render2.js\")"
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-qa-render2.js\")",
+      "Bash(mkdir -p C:/Users/General/Documents/GitHub/johnfororegon/public/campaign-social/previews)",
+      "Bash(cp C:/Users/General/Documents/GitHub/johnfororegon/campaign-social/*.html C:/Users/General/Documents/GitHub/johnfororegon/public/campaign-social/)",
+      "Bash(cp C:/Users/General/Documents/GitHub/johnfororegon/campaign-social/previews/*.png C:/Users/General/Documents/GitHub/johnfororegon/public/campaign-social/previews/)",
+      "Bash(curl -s -o /dev/null -w \"PORT 3000: %{http_code}\\\\n\" http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w \"PORT 3001: %{http_code}\\\\n\" http://localhost:3001)",
+      "Bash(curl -s http://localhost:3000/social-media-posts -o /dev/null -w \"/social-media-posts on 3000: %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:3001/social-media-posts -o /dev/null -w \"/social-media-posts on 3001: %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3001/)",
+      "Bash(PORT=3010 npm run dev)",
+      "Bash(echo \"Started pid $!\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3010/)",
+      "Bash(curl -s -o /tmp/gallery.html -w \"%{http_code}\" http://localhost:3010/social-media-posts)",
+      "Bash(curl -s -o /dev/null -w \"detail: %{http_code}\\\\n\" http://localhost:3010/social-media-posts/feed-01-editorial-portrait)",
+      "Bash(curl -s -o /dev/null -w \"raw html: %{http_code}\\\\n\" http://localhost:3010/campaign-social/feed-01-editorial-portrait.html)",
+      "Bash(TARGET_URL=http://localhost:3010 node run.js /tmp/playwright-test-social-posts.js)",
+      "Bash(TARGET_URL=http://localhost:3010 node run.js \"C:/Users/General/AppData/Local/Temp/playwright-test-social-posts.js\")",
+      "Bash(TARGET_URL=http://localhost:3010 node run.js \"C:/Users/General/AppData/Local/Temp/pw-socialposts-johnfororegon.js\")",
+      "Bash(kill bjqkw88rp *)",
+      "Bash(awk '{print $2}')",
+      "Bash(xargs -r kill)"
     ]
   }
 }

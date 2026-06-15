@@ -10,6 +10,7 @@ import { Button } from "@/components/Button";
 const links = [
   { label: "About", href: "/about" },
   { label: "Events", href: "/events" },
+  { label: "Posts", href: "/social-media-posts" },
   { label: "Volunteer", href: "/volunteer" },
   { label: "Contact", href: "/contact" },
 ];
